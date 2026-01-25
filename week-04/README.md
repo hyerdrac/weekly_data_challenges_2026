@@ -58,7 +58,7 @@ It helps identify strong positive or negative relationships and potential multic
 
 ---
 
-### Scatter Plot: Age vs Glucose
+### Scatter Plots
 
 ![](/week-04/images/corr_age_pregnancies.png)
 ![](/week-04/images/corr_insulin_skinthickness.png)
@@ -70,7 +70,7 @@ A linear regression line is added to highlight the overall trend.
 
 ---
 
-### Histogram: Age Distribution
+### Histograms
 
 ![](/week-04/images/hist_age.png)
 ![](/week-04/images/hist_bloodpressure.png)
