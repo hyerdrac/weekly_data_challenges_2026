@@ -1,4 +1,4 @@
-# Week 06 – Paired Analysis of CO₂ Emissions Using Wilcoxon Signed-Rank Test
+# Week 06 – Data Cleaning Challenge
 
 ## About the Project
 
