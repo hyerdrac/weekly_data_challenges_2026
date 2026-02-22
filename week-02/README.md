@@ -1,4 +1,4 @@
-# Week 02 – Data Challenge
+# Week 02 – Churn Analysis and Data Drift
 
 
 ## About the Project
