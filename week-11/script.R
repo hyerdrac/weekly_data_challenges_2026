@@ -6,9 +6,6 @@ library(ggplot2)
 # Note: Ensure "dataset.csv" is in your working directory
 df <- read.csv("dataset.csv")
 
-# It is highly recommended to scale data before K-means
-# df_scaled <- scale(df) 
-
 # Set seed for reproducibility
 set.seed(0)
 
