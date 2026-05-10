@@ -1,106 +1,58 @@
-library(dplyr)
 library(ggplot2)
-library(reshape2)
+library(dplyr)
 
-data <- read.csv("insurance.csv")
+data <- read.csv("Teen_Mental_Health_Dataset.csv")
 
 head(data)
 str(data)
-data %>% apply(2, table)
 
-
-data <- data %>%
-  mutate(
-    sex = as.factor(sex),
-    smoker = as.factor(smoker),
-    region = as.factor(region),
-    children = factor(children, levels = 0:5, 
-                      labels = c("No kid", "1 kid", "2 kids", "3 kids", "4 kids", "5 kids"))
-  )
+data <- data %>% mutate(
+  gender = as.factor(gender),
+  platform_usage = as.factor(platform_usage),
+  social_interaction_level = as.factor(social_interaction_level),
+  stress_level = as.factor(stress_level),
+  anxiety_level = as.factor(anxiety_level),
+  addiction_level = as.factor(addiction_level),
+  depression_label = factor(depression_label, levels = c(0,1), labels = c("no","yes"))
+)
 
 str(data)
 
+# ==================================================================================
+# Daily Social Media Usage Among Two Platforms
+# ==================================================================================
 
-# ========================================================
-# VISUALIZATION
-# ========================================================
+data %>% select(daily_social_media_hours, platform_usage) %>% filter(platform_usage != "Both") %>% group_by(platform_usage) %>% 
+  summarise(mean = mean(daily_social_media_hours)) %>% ggplot() +
+  geom_col(aes(x = platform_usage, y = mean), fill = "yellow" , color = "orange") +
+  xlab("Platform") + 
+  ylab("Average usage by hours") + 
+  theme_dark()
 
-# Distribution of age
+# ==================================================================================
+# Daily Social Media Usage Among Genders
+# ==================================================================================
 
-data %>% ggplot() +
-  geom_histogram(aes(age))
+data %>% select(gender, daily_social_media_hours) %>% group_by(gender) %>% 
+  summarise(mean = mean(daily_social_media_hours)) %>% ggplot() +
+  geom_col(aes(x = gender, y = mean), fill = "blue", color = "navy") +
+  xlab("Gender") + 
+  ylab("Average usage by hours") + 
+  theme_minimal()
 
-# Distribution of bmi
+# ==================================================================================
+# Stress Level Distribution
+# ==================================================================================
 
-data %>% ggplot() +
-  geom_histogram(aes(bmi))
+data %>% ggplot() + geom_bar(aes(x=stress_level, fill = )) +
+  xlab("Stress Level") + 
+  ylab("Count") +
+  theme_minimal()
 
-# Distribution of charges
+# ==================================================================================
+# Relation Between Daily Usage and Academic Performance
+# ==================================================================================
 
-data %>% ggplot() +
-  geom_histogram(aes(charges))
+data %>% ggplot() + geom_point(aes(x = daily_social_media_hours, y = academic_performance))
 
-# Barplot of sex
-
-data %>% ggplot() +
-  geom_bar(aes(sex))
-
-# Barplot of children
-
-data %>% ggplot() +
-  geom_bar(aes(children))
-
-# Barplot of smoker
-
-data %>% ggplot() +
-  geom_bar(aes(smoker))
-
-# Barplot of region
-
-data %>% ggplot() +
-  geom_bar(aes(region))
-
-# Correlation Heatmap
-
-numeric_cols <- data[,c(1,3,7)]
-cor_matrix <- cor(numeric_cols, use = "complete.obs", method = "pearson")
-
-cor_df <- melt(cor_matrix)
-
-ggplot(cor_df, aes(x = Var1, y = Var2, fill = value)) +
-  geom_tile(color = "white") +
-  scale_fill_gradient2(
-    low = "blue",
-    mid = "white",
-    high = "red",
-    midpoint = 0,
-    limits = c(-1, 1)
-  ) +
-  theme_minimal() +
-  labs(fill = "Correlation")
-
-# ========================================================
-# MACHINE LEARNING
-# ========================================================
-
-# Linear Regression 1
-model_1 <- lm(charges ~ ., data = data)
-summary(model_1)
-
-par(mfrow=c(2,2))
-plot(model_1)
-
-# Linear Regression 2 (feature engineered)
-model_2 <- lm(charges ~ age + bmi + smoker*bmi + children + region + sex, data=data)
-summary(model_2)
-
-par(mfrow=c(2,2))
-plot(model_2)
-
-# Linear Regression 3 (log transformed)
-
-model_3 <- lm(log(charges) ~ age + bmi + children + smoker * bmi + region, data = data)
-summary(model_3)
-
-par(mfrow=c(2,2))
-plot(model_3)
+                               

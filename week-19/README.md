@@ -1,25 +1,28 @@
-# Week 19 – Health Insurance Cost Analysis & Regression Modeling
+# Week 19 – Teen Mental Health Vizulazitation
+
+![Bar Plot](/week-19/plots/bar_1.png)
 
 ## About the Project
 
-This project investigates the impact of demographic factors and lifestyle habits on healthcare insurance costs. Through comprehensive Exploratory Data Analysis (EDA) and Feature Engineering, three distinct Linear Regression models were developed and evaluated to accurately predict insurance charges.
+!!! First version of this week was a copy of my previous project. When I realized, I fixed it and made this project !!!
+
+This project focuses on analyzing and visualizing the impact of social media habits and demographic factors on the mental health of teenagers. By utilizing **Exploratory Data Analysis (EDA)** in R, the study examines how variables like platform preference and daily usage hours relate to psychological indicators such as stress and depression.
 
 ---
 
 ## Goal
 
-The primary objective of this study is to model the relationship between various independent variables and the target variable, **charges**.
+The primary objective is to transform raw survey data into actionable visual insights. Key goals include:
+* **Platform Comparison:** Evaluating which social media platforms have the highest average daily usage.
+* **Demographic Analysis:** Identifying differences in social media consumption patterns across genders.
+* **Trend Identification:** Visualizing the distribution of stress levels and their relationship with academic performance.
 
-Key focus areas include:
-* Quantifying the interaction effect between **Smoking Status** and **BMI** on total costs.
-* Identifying key drivers of insurance premiums through data visualization.
-* Optimizing model performance using feature engineering (interaction terms) and log transformations.
 ---
 
 ## Dataset
 
-* **Source:** [Medical Cost Personal Datasets](https://www.kaggle.com/datasets/mirichoi0218/insurance)
-* **Description:**  Machine Learning with R by Brett Lantz is a book that provides an introduction to machine learning using R. As far as I can tell, Packt Publishing does not make its datasets available online unless you buy the book and create a user account which can be a problem if you are checking the book out from the library or borrowing the book from a friend. All of these datasets are in the public domain but simply needed some cleaning up and recoding to match the format in the book. (Based on the original dataset description)
+* **Source:** [Social Media Impact on Teen Mental Health](https://www.kaggle.com/datasets/algozee/teenager-menthal-healy)
+* **Description:** This dataset studies how social media use affects the mental health of teenagers. It includes daily habits like social media hours, sleep, stress, anxiety, and physical activity. The goal is to understand if high social media use is linked with problems like stress, anxiety, and depression. The data helps in analyzing behavior and building machine learning models to predict mental health risk. Overall, this dataset is useful for basic research and for creating models that can help in early detection of mental health issues in teenagers. (Based on the original dataset description)
 
 > The raw dataset is not included in this repository. Please refer to the original Kaggle source.
 ---
@@ -27,24 +30,23 @@ Key focus areas include:
 ## Tools Used
 
 * R  
-* ggplot2  
+* ggplot2
 * dplyr
-* reshape2  
 * R Studio  
 
 ---
 
 ## What Was Done
 
-* **Data Preprocessing:** Categorical variables were converted to `factors`. The `children` variable was relabeled with descriptive levels (e.g., "No kid", "1 kid") for better interpretability.
-* **Exploratory Data Analysis (EDA):**
-    * Distribution of age, BMI, and charges were analyzed using histograms.
-    * Frequency of categorical variables was visualized via bar plots.
-    * Relationship between numerical variables was assessed using a **Correlation Heatmap**.
-* **Machine Learning & Modeling:**
-    * **Model 1 (Baseline):** A multiple linear regression including all features.
-    * **Model 2 (Feature Engineered):** Introduced an interaction term (`smoker * bmi`), significantly improving explanatory power.
-    * **Model 3 (Log-Transformed):** Applied a `log(charges)` transformation to address the right-skewed nature of the target variable.
-* **Diagnostic Analysis:** Performed residual analysis and checked model assumptions using diagnostic plots (`plot(model)`).
+* Data Preprocessing
+    * Cleaned and transformed character variables into `factors` for better categorical analysis.
+    * Re-coded the `depression_label` (0/1) into descriptive labels ("no"/"yes") to ensure clarity in visualizations.
+
+* Exploratory Data Analysis (EDA)
+    * **Daily Usage by Platform:** Filtered specific platform data and used `summarise()` to calculate average hours, visualized via `geom_col`.
+    * **Gender-Based Consumption:** Analyzed the mean usage hours per gender using a minimal theme.
+    * **Psychological Profiling:** Created bar charts to show the frequency distribution of different stress levels among participants.
+    * **Performance Analysis:** Used scatter plots (`geom_point`) to check for correlations between social media screen time and academic success.
+
 
 --- 
